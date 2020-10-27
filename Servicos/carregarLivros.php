@@ -17,11 +17,21 @@
     <td><?php echo $linha->Nome ?></td>
     <td><?php echo $linha->Autor ?></td>
     <td><?php echo $linha->QtdPaginas ?></td>
-    <td><?php echo $linha->Preco ?></td>
+    <td><?php echo "R$ ", formatarPreco($linha->Preco) ?></td>
     <td><?php echo $linha->Disponibilidade ?></td>
     <td><?php echo $linha->DataDeEdicao ?></td>
-    <td><button class="btn-crud" id="editar<?php echo $linha->Id?>">Editar</button></td>
+    <td>
+        <center>
+            <button class="btn-crud" id="editar<?php echo $linha->Id?>">Editar</button>
+            <button class="btn-crud" id="deletar<?php echo $linha->Id?>">Deletar</button>
+        </center>
+    </td>
 </tr>
 <?php
+    }
+
+    function formatarPreco($preco){
+        $precoFormatado = number_format($preco, 2, ',', '.');
+        return $precoFormatado;
     }
 ?>
