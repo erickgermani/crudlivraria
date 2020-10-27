@@ -40,20 +40,22 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Nome: </label>
-                        <input type="email" class="form-control" placeholder="Insira o nome do livro" id="nome" /> <br>
+                        <input type="text" class="form-control" placeholder="Insira o nome do livro"
+                            id="fCadastrarNome" /> <br>
                         <label>Autor: </label>
-                        <input type="email" class="form-control" placeholder="Insira o autor do livro" id="autor" />
+                        <input type="text" class="form-control" placeholder="Insira o autor do livro"
+                            id="fCadastrarAutor" />
                         <br>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Quantidade de Páginas: </label>
-                                <input type="email" class="form-control"
-                                    placeholder="Insira a quantidade de páginas do livro" id="qtdPaginas" />
+                                <input type="text" class="form-control"
+                                    placeholder="Insira a quantidade de páginas do livro" id="fCadastrarQtdPaginas" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Preço: </label>
-                                <input type="email" class="form-control" placeholder="Insira o preço do livro"
-                                    id="preco" />
+                                <input type="text" class="form-control" placeholder="Insira o preço do livro"
+                                    id="fCadastrarPreco" />
                             </div>
                         </div>
                     </div>
@@ -62,6 +64,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" style="margin-right: auto"
                         onclick="verificarCadastro()">Cadastrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-edicao">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edição</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" id="edicao">
+
+                    </div>
+                    <div id="alertaEdicao"> </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="margin-right: auto"
+                        onclick="verificarEdicao()">Editar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
@@ -107,6 +130,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+
+var id;
+
 $(document).ready(function() {
     carregarLivros();
 });
@@ -126,10 +152,10 @@ function carregarLivros() {
 }
 
 function verificarCadastro() {
-    var nome = $("#nome").val();
-    var autor = $("#autor").val();
-    var qtdPaginas = $("#qtdPaginas").val();
-    var preco = $("#preco").val();
+    var nome = $("#fCadastrarNome").val();
+    var autor = $("#fCadastrarAutor").val();
+    var qtdPaginas = $("#fCadastrarQtdPaginas").val();
+    var preco = $("#fCadastrarPreco").val();
     if (!verificarCampos(nome, autor, qtdPaginas, preco)) {
         var alertaCampo =
             "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Preencha todos os campos.</div>"
@@ -149,6 +175,10 @@ function verificarCadastro() {
         return;
     }
 
+    cadastrarLivro(nome, autor, qtdPaginas, preco);
+}
+
+function cadastrarLivro(nome, autor, qtdPaginas, preco) {
     var page = "Servicos/cadastrarLivro.php";
     $.ajax({
         type: 'POST',
@@ -163,6 +193,80 @@ function verificarCadastro() {
         beforeSend: function() {},
         success: function(resultado) {
             $("#alertaCadastro").html(resultado);
+            carregarLivros();
+        }
+    });
+    alert("Opa");
+}
+
+function selecionarLivro(idRecebido) {
+    id = idRecebido;
+    var page = "Servicos/selecionarLivro.php";
+    $.ajax({
+        type: 'POST',
+        dataType: 'html',
+        url: page,
+        data: {
+            id: id
+        },
+        beforeSend: function() {},
+        success: function(resultado) {
+            $("#edicao").html(resultado);
+        }
+    });
+}
+
+function verificarEdicao(){
+    var nome = $("#fEditarNome").val();
+    var autor = $("#fEditarAutor").val();
+    var qtdPaginas = $("#fEditarQtdPaginas").val();
+    var preco = $("#fEditarPreco").val();
+    var disponibilidade;
+    if($("#fEditarDispAtivo").prop("checked")){
+        disponibilidade = "Ativo";
+    }
+    if($("#fEditarDispInativo").prop("checked")){
+        disponibilidade = "Inativo";
+    }
+
+    if (!verificarCampos(nome, autor, qtdPaginas, preco)) {
+        var alertaCampo =
+            "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Preencha todos os campos.</div>"
+        $("#alertaEdicao").html(alertaCampo);
+        return;
+    }
+    if (!verificarPreco(preco) || preco < 0) {
+        var alertaPreco =
+            "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O preço está em um formato incorreto. Deve ser um número positivo.</div>"
+        $("#alertaEdicao").html(alertaPreco);
+        return;
+    }
+    if (!verificarQtdPaginas(qtdPaginas)) {
+        var alertaQtdPaginas =
+            "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O número de páginas deve ser um número inteiro maior do que 0.</div>"
+        $("#alertaEdicao").html(alertaQtdPaginas);
+        return;
+    }
+    EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade);
+}
+
+function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade){
+    var page = "Servicos/editarLivro.php";
+    $.ajax({
+        type: 'POST',
+        dataType: 'html',
+        url: page,
+        data: {
+            nome: nome,
+            autor: autor,
+            qtdPaginas: qtdPaginas,
+            preco: preco,
+            disponibilidade: disponibilidade,
+            id: id
+        },
+        beforeSend: function() {},
+        success: function(resultado) {
+            $("#alertaEdicao").html(resultado);
             carregarLivros();
         }
     });

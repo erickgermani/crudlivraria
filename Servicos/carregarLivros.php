@@ -5,13 +5,13 @@
     $con = conectar();
     mysql_select_db('livrariaonline') or die(mysql_error());
 
-    $consulta = mysql_query("SELECT * FROM livro");
+    $query = mysql_query("SELECT * FROM livro");
 
-    if(mysql_num_rows($consulta) == 0){
+    if(mysql_num_rows($query) == 0){
         echo "<td colspan='7'><center>Não existem livros cadastrados em nosso sistema.</center></td>";
     }
 
-    while($linha=mysql_fetch_object($consulta)){
+    while($linha=mysql_fetch_object($query)){
 ?>
 <tr>
     <td><?php echo $linha->Nome ?></td>
@@ -22,8 +22,8 @@
     <td><?php echo $linha->DataDeEdicao ?></td>
     <td>
         <center>
-            <button class="btn-crud" id="editar<?php echo $linha->Id?>">Editar</button>
-            <button class="btn-crud" id="deletar<?php echo $linha->Id?>">Deletar</button>
+            <button class="btn-crud" value="<?php echo $linha->Id?>" data-toggle="modal" data-target="#modal-edicao" onclick="selecionarLivro(this.value)">Editar</button>
+            <button class="btn-crud" value="<?php echo $linha->Id?>">Deletar</button>
         </center>
     </td>
 </tr>
