@@ -92,7 +92,7 @@
 <div id="tabela-livros">
     <div class="container-md">
         <div class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" id="pesquisarLivro">
             <button class="btn btn-outline-success my-2 my-sm-0" onclick="Pesquisar(this.value)">Pesquisar</button>
             <button class="btn btn-outline-secondary" style="margin-left: auto" onclick="CarregarLivros()">
                 Atualizar lista de livros
@@ -111,6 +111,7 @@
                     <th scope="col">Páginas</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Disponibilidade</th>
+                    <th scope="col">Adicionado em</th>
                     <th scope="col">Atualizado em</th>
                     <th scope="col">
                         <center>Ação</center>
@@ -121,7 +122,7 @@
             </tbody>
             <tbody>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <center><button class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal-cadastro">Cadastrar
                             livro</button></center>
                         </td>
@@ -143,7 +144,7 @@
     });
     
     function CarregarLivros() {
-        var page = "Servicos/CarregarLivros.php";
+        var page = "Servicos/carregarLivros.php";
         $.ajax({
             type: 'POST',
             dataType: 'html',
@@ -184,7 +185,7 @@
     }
     
     function CadastrarLivro(nome, autor, qtdPaginas, preco) {
-        var page = "Servicos/CadastrarLivro.php";
+        var page = "Servicos/cadastrarLivro.php";
         $.ajax({
             type: 'POST',
             dataType: 'html',
@@ -205,7 +206,7 @@
     
     function SelecionarLivro(idRecebido) {
         id = idRecebido;
-        var page = "Servicos/SelecionarLivro.php";
+        var page = "Servicos/selecionarLivro.php";
         $.ajax({
             type: 'POST',
             dataType: 'html',
@@ -238,8 +239,6 @@
         var qtdPaginas = $("#fEditarQtdPaginas").val();
         var preco = $("#fEditarPreco").val();
         var disponibilidade;
-        
-        
         
         if ($("#fEditarDispAtivo").prop("checked")) {
             disponibilidade = "Ativo";
@@ -292,7 +291,7 @@
     }
     
     function DeletarLivro(id) {
-        var page = "Servicos/DeletarLivro.php";
+        var page = "Servicos/deletarLivro.php";
         $.ajax({
             type: 'POST',
             dataType: 'html',
@@ -306,6 +305,24 @@
                     alert("Ocorreu um erro inesperado durante a exclusão. Tente novamente.");
                 }
                 CarregarLivros();
+            }
+        });
+    }
+
+    function Pesquisar(){
+        var valor = $("#pesquisarLivro").val();
+        var page = "Servicos/pesquisarLivros.php";
+        $.ajax({
+            type: 'POST',
+            dataType: 'html',
+            url: page,
+            data: {
+                valor: valor
+            },
+            beforeSend: function() {
+            },
+            success: function(resultado) {
+                $("#linhas").html(resultado);
             }
         });
     }

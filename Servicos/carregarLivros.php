@@ -5,7 +5,7 @@
     $con = conectar();
     mysql_select_db('livrariaonline') or die(mysql_error());
 
-    $query = mysql_query("SELECT * FROM livro");
+    $query = mysql_query("SELECT * FROM livro ORDER BY Nome");
 
     if(mysql_num_rows($query) == 0){
         echo "<td colspan='7'><center>Não existem livros cadastrados em nosso sistema.</center></td>";
@@ -19,6 +19,7 @@
     <td><?php echo $linha->QtdPaginas ?></td>
     <td><?php echo "R$ ", formatarPreco($linha->Preco) ?></td>
     <td><?php echo $linha->Disponibilidade ?></td>
+    <td><?php echo $linha->DataDeCriacao ?></td>
     <td><?php echo $linha->DataDeEdicao ?></td>
     <td>
         <center>

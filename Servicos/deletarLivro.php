@@ -1,7 +1,7 @@
 <?php
     error_reporting (E_ALL & ~ E_NOTICE & ~ E_DEPRECATED);
     require_once '../config.php';
-    require_once 'funcoes.php';
+    
     $con = conectar();
     mysql_select_db('livrariaonline') or die(mysql_error());
 
