@@ -22,8 +22,8 @@
     <td><?php echo $linha->DataDeEdicao ?></td>
     <td>
         <center>
-            <button class="btn-crud" value="<?php echo $linha->Id?>" data-toggle="modal" data-target="#modal-edicao" onclick="selecionarLivro(this.value)">Editar</button>
-            <button class="btn-crud" value="<?php echo $linha->Id?>">Deletar</button>
+            <button class="btn-crud" value="<?php echo $linha->Id?>" data-toggle="modal" data-target="#modal-edicao" onclick="SelecionarLivro(this.value)">Editar</button>
+            <button class="btn-crud" value="<?php echo $linha->Id?>" onclick="DeletarLivro(this.value)">Deletar</button>
         </center>
     </td>
 </tr>
