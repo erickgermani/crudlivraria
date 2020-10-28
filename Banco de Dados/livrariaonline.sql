@@ -35,7 +35,7 @@ CREATE TABLE `livro` (
   `Id` int(11) NOT NULL,
   `Nome` varchar(50) NOT NULL,
   `Autor` varchar(30) NOT NULL,
-  `QtdPaginas` int(11) NOT NULL,
+  `qtdpaginas` int(11) NOT NULL,
   `Preco` double NOT NULL,
   `Disponibilidade` tinyint(1) NOT NULL DEFAULT '0',
   `DataDeCriacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -46,7 +46,7 @@ CREATE TABLE `livro` (
 -- Extraindo dados da tabela `livro`
 --
 
-INSERT INTO `livro` (`Id`, `Nome`, `Autor`, `QtdPaginas`, `Preco`, `Disponibilidade`, `DataDeCriacao`, `DataDeEdicao`) VALUES
+INSERT INTO `livro` (`Id`, `Nome`, `Autor`, `qtdpaginas`, `Preco`, `Disponibilidade`, `DataDeCriacao`, `DataDeEdicao`) VALUES
 (1, 'Arte da Guerra', 'Sun Tzu', 120, 24, 1, '2020-10-27 20:50:41', '2020-10-28 13:05:28'),
 (2, 'RevoluÃ§Ã£o dos Bichos', 'George Orwell', 84, 54, 1, '2020-10-27 20:52:03', '2020-10-28 17:02:07'),
 (3, '1984', 'George Orwell', 161, 145.99, 1, '2020-10-27 20:55:06', '2020-10-28 19:21:48'),

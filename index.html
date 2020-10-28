@@ -1,9 +1,8 @@
-<!-- HTML5 -->
-<meta charset="utf-8"/>
-
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 
 <head>
+    <meta charset="utf-8"/>
     <title>
         Livraria Online
     </title>
@@ -34,29 +33,29 @@
                     <div class="form-group">
                         <label>Nome: </label>
                         <input type="text" class="form-control" placeholder="Insira o nome do livro"
-                        id="fCadastrarNome" /> <br>
+                        id="fcadastrarnome" /> <br>
                         <label>Autor: </label>
                         <input type="text" class="form-control" placeholder="Insira o autor do livro"
-                        id="fCadastrarAutor" />
+                        id="fcadastrarautor" />
                         <br>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Quantidade de Páginas: </label>
                                 <input type="text" class="form-control"
-                                placeholder="Insira a quantidade de páginas do livro" id="fCadastrarQtdPaginas" />
+                                placeholder="Insira a quantidade de páginas do livro" id="fcadastrarqtdpaginas" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Preço: </label>
                                 <input type="text" class="form-control" placeholder="Insira o preço do livro"
-                                id="fCadastrarPreco" />
+                                id="fcadastrarpreco" />
                             </div>
                         </div>
                     </div>
-                    <div id="alertaCadastro"> </div>
+                    <div id="alertacadastro"> </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" style="margin-right: auto"
-                    onclick="VerificarCadastro()">Cadastrar</button>
+                    onclick="verificarCadastro()">Cadastrar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
@@ -74,11 +73,11 @@
                     <div class="form-group" id="edicao">
                         
                     </div>
-                    <div id="alertaEdicao"> </div>
+                    <div id="alertaedicao"> </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" style="margin-right: auto"
-                    onclick="VerificarEdicao()">Editar</button>
+                    onclick="verificarEdicao()">Editar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
@@ -89,9 +88,9 @@
     <div id="tabela-livros">
         <div class="container-fluid">
             <div class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" id="pesquisarLivro" title="Pesquisar por livro ou autor">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="Pesquisar(this.value)">Pesquisar</button>
-                <button class="btn btn-outline-secondary" style="margin-left: 10px" onclick="CarregarLivros()">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" id="pesquisarlivro" title="Pesquisar por livro ou autor">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" onclick="pesquisar(this.value)">Pesquisar</button>
+                <button class="btn btn-outline-secondary" style="margin-left: 10px" onclick="carregarLivros()">
                     Atualizar lista de livros
                 </button>
                 <button class="btn btn-outline-secondary" style="margin-left: auto" data-toggle="modal" data-target="#modal-cadastro">

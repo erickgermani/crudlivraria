@@ -18,7 +18,7 @@ if($funcao == 2){
     $livro = new Livro();
     $livro->Nome = $_POST['nome'];
     $livro->Autor = $_POST['autor'];
-    $livro->QtdPaginas = $_POST['qtdPaginas'];
+    $livro->qtdpaginas = $_POST['qtdpaginas'];
     $livro->Preco = formatarPrecoParaBD($_POST['preco']);
     $livro->cadastrarLivro();
 }
@@ -34,7 +34,7 @@ if($funcao == 4){
     $livro->Id = $_POST['id'];
     $livro->Nome = $_POST['nome'];
     $livro->Autor = $_POST['autor'];
-    $livro->QtdPaginas = $_POST['qtdPaginas'];
+    $livro->qtdpaginas = $_POST['qtdpaginas'];
     $livro->Preco = formatarPrecoParaBD($_POST['preco']);
     $livro->Disponibilidade = $_POST['disponibilidade'];
     $livro->editarLivro();
@@ -55,7 +55,7 @@ if($funcao == 6){
 if($funcao == 7){
     $livro = new Livro();
     $valor = $_POST['valor'];
-    $query = $livro->pesquisarLivros($valor);
+    $query = $livro->pesquisarlivros($valor);
     CriadorDeTabela::criar($query);
 }
 

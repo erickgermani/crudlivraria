@@ -1,12 +1,12 @@
 var id;
 
 $(document).ready(function() {
-    CarregarLivros();
+    carregarLivros();
 });
 
 // Carregar tabela com os livros após o loading da página
 
-function CarregarLivros() {
+function carregarLivros() {
     var funcao = 1;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -25,34 +25,34 @@ function CarregarLivros() {
 
 // Verificar se os campos de cadastro estão preenchidos com o formato correto
 
-function VerificarCadastro() {
-    var nome = $("#fCadastrarNome").val();
-    var autor = $("#fCadastrarAutor").val();
-    var qtdPaginas = $("#fCadastrarQtdPaginas").val();
-    var preco = $("#fCadastrarPreco").val();
-    if (!VerificarCampos(nome, autor, qtdPaginas, preco)) {
-        var alertaCampo =
+function verificarCadastro() {
+    var nome = $("#fcadastrarnome").val();
+    var autor = $("#fcadastrarautor").val();
+    var qtdpaginas = $("#fcadastrarqtdpaginas").val();
+    var preco = $("#fcadastrarpreco").val();
+    if (!verificarCampos(nome, autor, qtdpaginas, preco)) {
+        var alertacampo =
         "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Preencha todos os campos.</div>"
-        $("#alertaCadastro").html(alertaCampo);
+        $("#alertacadastro").html(alertacampo);
         return;
     }
-    if (!VerificarPreco(preco) || preco < 0) {
-        var alertaPreco =
+    if (!verificarPreco(preco) || preco < 0) {
+        var alertapreco =
         "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O preço está em um formato incorreto. Deve ser um número maior do que 0.</div>"
-        $("#alertaCadastro").html(alertaPreco);
+        $("#alertacadastro").html(alertapreco);
         return;
     }
-    if (!VerificarQtdPaginas(qtdPaginas)) {
-        var alertaQtdPaginas =
+    if (!verificarqtdpaginas(qtdpaginas)) {
+        var alertaqtdpaginas =
         "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O número de páginas deve ser um número inteiro maior do que 0.</div>"
-        $("#alertaCadastro").html(alertaQtdPaginas);
+        $("#alertacadastro").html(alertaqtdpaginas);
         return;
     }
     
-    CadastrarLivro(nome, autor, qtdPaginas, preco);
+    CadastrarLivro(nome, autor, qtdpaginas, preco);
 }
 
-function CadastrarLivro(nome, autor, qtdPaginas, preco) {
+function CadastrarLivro(nome, autor, qtdpaginas, preco) {
     var funcao = 2;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -62,18 +62,18 @@ function CadastrarLivro(nome, autor, qtdPaginas, preco) {
         data: {
             nome: nome,
             autor: autor,
-            qtdPaginas: qtdPaginas,
+            qtdpaginas: qtdpaginas,
             preco: preco,
             funcao: funcao
         },
         beforeSend: function() {},
         success: function(resultado) {
-            $("#alertaCadastro").html(resultado);
-            CarregarLivros();
-            $("#fCadastrarNome").val("");
-            $("#fCadastrarAutor").val("");
-            $("#fCadastrarQtdPaginas").val("");
-            $("#fCadastrarPreco").val("");
+            $("#alertacadastro").html(resultado);
+            carregarLivros();
+            $("#fcadastrarnome").val("");
+            $("#fcadastrarautor").val("");
+            $("#fcadastrarqtdpaginas").val("");
+            $("#fcadastrarpreco").val("");
         }
     });
 }
@@ -95,9 +95,9 @@ function SelecionarLivro(idRecebido) {
         beforeSend: function() {},
         success: function(resultado) {
             $("#edicao").html(resultado);
-            var fEditarQtdPaginas = document.querySelector("#fEditarQtdPaginas");
+            var feditarqtdpaginas = document.querySelector("#feditarqtdpaginas");
             
-            fEditarQtdPaginas.addEventListener("keypress", function(e) {
+            feditarqtdpaginas.addEventListener("keypress", function(e) {
                 if (e.key === ",") {
                     e.preventDefault();
                 }
@@ -113,42 +113,42 @@ function SelecionarLivro(idRecebido) {
 
 // Verificar se os campos de edição estão preenchidos corretamente
 
-function VerificarEdicao() {
-    var nome = $("#fEditarNome").val();
-    var autor = $("#fEditarAutor").val();
-    var qtdPaginas = $("#fEditarQtdPaginas").val();
-    var preco = $("#fEditarPreco").val();
+function verificarEdicao() {
+    var nome = $("#feditarnome").val();
+    var autor = $("#feditarautor").val();
+    var qtdpaginas = $("#feditarqtdpaginas").val();
+    var preco = $("#feditarpreco").val();
     var disponibilidade;
     
-    if ($("#fEditarDispAtivo").prop("checked")) {
+    if ($("#feditardispativo").prop("checked")) {
         disponibilidade = 1;
     }
-    if ($("#fEditarDispInativo").prop("checked")) {
+    if ($("#feditardispinativo").prop("checked")) {
         disponibilidade = 0;
     }
     
-    if (!VerificarCampos(nome, autor, qtdPaginas, preco)) {
-        var alertaCampo =
+    if (!verificarCampos(nome, autor, qtdpaginas, preco)) {
+        var alertacampo =
         "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Preencha todos os campos.</div>"
-        $("#alertaEdicao").html(alertaCampo);
+        $("#alertaedicao").html(alertacampo);
         return;
     }
-    if (!VerificarPreco(preco) || preco < 0) {
-        var alertaPreco =
+    if (!verificarPreco(preco) || preco < 0) {
+        var alertapreco =
         "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O preço está em um formato incorreto. Deve ser um número positivo.</div>"
-        $("#alertaEdicao").html(alertaPreco);
+        $("#alertaedicao").html(alertapreco);
         return;
     }
-    if (!VerificarQtdPaginas(qtdPaginas)) {
-        var alertaQtdPaginas =
+    if (!verificarqtdpaginas(qtdpaginas)) {
+        var alertaqtdpaginas =
         "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O número de páginas deve ser um número inteiro maior do que 0.</div>"
-        $("#alertaEdicao").html(alertaQtdPaginas);
+        $("#alertaedicao").html(alertaqtdpaginas);
         return;
     }
-    EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade);
+    EditarLivro(nome, autor, qtdpaginas, preco, disponibilidade);
 }
 
-function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade) {
+function EditarLivro(nome, autor, qtdpaginas, preco, disponibilidade) {
     var funcao = 4;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -158,7 +158,7 @@ function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade) {
         data: {
             nome: nome,
             autor: autor,
-            qtdPaginas: qtdPaginas,
+            qtdpaginas: qtdpaginas,
             preco: preco,
             disponibilidade: disponibilidade,
             id: id,
@@ -166,8 +166,8 @@ function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade) {
         },
         beforeSend: function() {},
         success: function(resultado) {
-            $("#alertaEdicao").html(resultado);
-            CarregarLivros();
+            $("#alertaedicao").html(resultado);
+            carregarLivros();
         }
     });
 }
@@ -188,7 +188,7 @@ function DeletarLivro(id) {
             if (resultado != "") {
                 alert("Ocorreu um erro inesperado durante a exclusão. Tente novamente.");
             }
-            CarregarLivros();
+            carregarLivros();
         }
     });
 }
@@ -206,14 +206,14 @@ function AlterarDisponibilidade(id){
         },
         beforeSend: function() {},
         success: function() {
-            CarregarLivros();
+            carregarLivros();
         }
     });
 }
 
-function Pesquisar(){
+function pesquisar(){
     var funcao = 7;
-    var valor = $("#pesquisarLivro").val();
+    var valor = $("#pesquisarlivro").val();
     var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
@@ -231,30 +231,32 @@ function Pesquisar(){
     });
 }
 
-function VerificarCampos(nome, autor, qtdPaginas, preco) {
-    if (nome == "" || autor == "" || qtdPaginas == "" || preco == "") {
+function verificarCampos(nome, autor, qtdpaginas, preco) {
+    if (nome == "" || autor == "" || qtdpaginas == "" || preco == "") {
         return false;
     }
     return true;
 }
 
-function VerificarPreco(preco) {
+function verificarPreco(preco) {
     preco = preco.replace(",", ".");
-    return $.isNumeric(preco);
+    if(preco > 0){
+        return $.isNumeric(preco);
+    }
 }
 
-function VerificarQtdPaginas(qtdPaginas) {
-    if ($.isNumeric(qtdPaginas)) {
-        if (qtdPaginas > 0) {
+function verificarqtdpaginas(qtdpaginas) {
+    if ($.isNumeric(qtdpaginas)) {
+        if (qtdpaginas > 0) {
             return true;
         }
     }
     return false;
 }
 
-const fCadastrarQtdPaginas = document.querySelector("#fCadastrarQtdPaginas");
+const fcadastrarqtdpaginas = document.querySelector("#fcadastrarqtdpaginas");
 
-fCadastrarQtdPaginas.addEventListener("keypress", function(e) {
+fcadastrarqtdpaginas.addEventListener("keypress", function(e) {
     if (e.key === ",") {
         e.preventDefault();
     }
