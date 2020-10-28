@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 27-Out-2020 às 18:26
+-- Generation Time: 28-Out-2020 às 00:48
 -- Versão do servidor: 5.7.17
 -- PHP Version: 5.6.30
 
@@ -38,15 +38,9 @@ CREATE TABLE `livro` (
   `QtdPaginas` int(11) NOT NULL,
   `Preco` double NOT NULL,
   `Disponibilidade` varchar(10) NOT NULL DEFAULT 'Inativo',
+  `DataDeCriacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `DataDeEdicao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `livro`
---
-
-INSERT INTO `livro` (`Id`, `Nome`, `Autor`, `QtdPaginas`, `Preco`, `Disponibilidade`, `DataDeEdicao`) VALUES
-(1, 'Arte da Guerra', 'Sun Tzu', 171, 17.9, 'Inativo', '2020-10-27 13:50:06');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +60,7 @@ ALTER TABLE `livro`
 -- AUTO_INCREMENT for table `livro`
 --
 ALTER TABLE `livro`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
