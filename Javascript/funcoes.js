@@ -7,12 +7,15 @@ $(document).ready(function() {
 // Carregar tabela com os livros após o loading da página
 
 function CarregarLivros() {
-    var page = "Servicos/carregarLivros.php";
+    var funcao = 1;
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
         url: page,
-        data: {},
+        data: {
+            funcao: funcao
+        },
         beforeSend: function() {},
         success: function(resultado) {
             $("#linhas").html(resultado);
@@ -50,7 +53,8 @@ function VerificarCadastro() {
 }
 
 function CadastrarLivro(nome, autor, qtdPaginas, preco) {
-    var page = "Servicos/cadastrarLivro.php";
+    var funcao = 2;
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
@@ -59,7 +63,8 @@ function CadastrarLivro(nome, autor, qtdPaginas, preco) {
             nome: nome,
             autor: autor,
             qtdPaginas: qtdPaginas,
-            preco: preco
+            preco: preco,
+            funcao: funcao
         },
         beforeSend: function() {},
         success: function(resultado) {
@@ -76,13 +81,15 @@ function CadastrarLivro(nome, autor, qtdPaginas, preco) {
 // Preencher o modal Edicao com os dados do livro selecionado
 
 function SelecionarLivro(idRecebido) {
+    var funcao = 3;
     id = idRecebido;
-    var page = "Servicos/selecionarLivro.php";
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
         url: page,
         data: {
+            funcao: funcao,
             id: id
         },
         beforeSend: function() {},
@@ -114,10 +121,10 @@ function VerificarEdicao() {
     var disponibilidade;
     
     if ($("#fEditarDispAtivo").prop("checked")) {
-        disponibilidade = "Ativo";
+        disponibilidade = 1;
     }
     if ($("#fEditarDispInativo").prop("checked")) {
-        disponibilidade = "Inativo";
+        disponibilidade = 0;
     }
     
     if (!VerificarCampos(nome, autor, qtdPaginas, preco)) {
@@ -142,7 +149,8 @@ function VerificarEdicao() {
 }
 
 function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade) {
-    var page = "Servicos/editarLivro.php";
+    var funcao = 4;
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
@@ -153,7 +161,8 @@ function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade) {
             qtdPaginas: qtdPaginas,
             preco: preco,
             disponibilidade: disponibilidade,
-            id: id
+            id: id,
+            funcao: funcao
         },
         beforeSend: function() {},
         success: function(resultado) {
@@ -164,13 +173,15 @@ function EditarLivro(nome, autor, qtdPaginas, preco, disponibilidade) {
 }
 
 function DeletarLivro(id) {
-    var page = "Servicos/deletarLivro.php";
+    var funcao = 5;
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
         url: page,
         data: {
-            id: id
+            id: id,
+            funcao: funcao
         },
         beforeSend: function() {},
         success: function(resultado) {
@@ -183,13 +194,15 @@ function DeletarLivro(id) {
 }
 
 function AlterarDisponibilidade(id){
-    var page = "Servicos/alterarDisponibilidade.php";
+    var funcao = 6;
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
         url: page,
         data: {
-            id: id
+            id: id,
+            funcao: funcao
         },
         beforeSend: function() {},
         success: function() {
@@ -199,14 +212,16 @@ function AlterarDisponibilidade(id){
 }
 
 function Pesquisar(){
+    var funcao = 7;
     var valor = $("#pesquisarLivro").val();
-    var page = "Servicos/pesquisarLivros.php";
+    var page = "Controlador/livroController.php";
     $.ajax({
         type: 'POST',
         dataType: 'html',
         url: page,
         data: {
-            valor: valor
+            valor: valor,
+            funcao: funcao
         },
         beforeSend: function() {
         },
