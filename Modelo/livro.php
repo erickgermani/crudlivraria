@@ -48,7 +48,7 @@ class Livro {
         <div class="form-group col-md-6">
         <label>Preço: </label>
         <input type="text" class="form-control" placeholder="Insira o preço do livro" id="feditarpreco"
-        value="<?php echo formatarPrecoParaModal($linha->Preco) ?>" />
+        value="<?php echo formatarPreco($linha->Preco) ?>" />
         </div>
         <div class="form-group">
         <label>Disponibilidade </label> <br>
@@ -109,18 +109,14 @@ class Livro {
 }
 
 function formatarPrecoParaBD($preco){
+    $preco = str_replace(".", "", $preco);
     $preco = str_replace(",", ".", $preco);
     $preco = number_format($preco, 2, '.', '');
     return $preco;
 }
 
-function formatarPrecoParaTabela($preco){
+function formatarPreco($preco){
     $preco = number_format($preco, 2, ',', '.');
-    return $preco;
-}
-
-function formatarPrecoParaModal($preco){
-    $preco = number_format($preco, 2, ',', '');
     return $preco;
 }
 

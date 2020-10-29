@@ -11,7 +11,7 @@ class criadorDeTabela{
             <td><?php echo $linha->Nome ?></td>
             <td><?php echo $linha->Autor ?></td>
             <td><?php echo $linha->QtdPaginas ?></td>
-            <td><?php echo "R$ ", formatarPrecoParaTabela($linha->Preco) ?></td>
+            <td><?php echo "R$ ", formatarPreco($linha->Preco) ?></td>
             <td><?php if($linha->Disponibilidade){echo "Ativo";} else{echo "Inativo";}?>
             <button class="btn-crud" <?php if($linha->Disponibilidade == true){ echo "style='margin-left: 11px'"; } ?> value="<?php echo $linha->Id?>" onclick="AlterarDisponibilidade(this.value)" title="Alterar disponibilidade"> Alterar </button>
             </td>
