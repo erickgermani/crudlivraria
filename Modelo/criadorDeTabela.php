@@ -2,11 +2,11 @@
 
 class criadorDeTabela{
     static function criar($query){
-        if(mysql_num_rows($query) == 0){
+        if(mysqli_num_rows($query) == 0){
             echo "<td colspan='7'><center>Não existem livros cadastrados em nosso sistema.</center></td>";
         }
         
-        while($linha=mysql_fetch_object($query)){
+        while($linha=mysqli_fetch_object($query)){
             ?>
             <tr>
             <td><?php echo $linha->Nome ?></td>

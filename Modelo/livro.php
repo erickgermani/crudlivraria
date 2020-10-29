@@ -8,15 +8,15 @@ class Livro {
     public $Preco;
     public $Disponibilidade;
     
-    function carregarLivros(){
-        return $query = mysql_query("SELECT * FROM livro ORDER BY Nome");
+    function carregarLivros($con){
+        return $query = mysqli_query($con, "SELECT * FROM livro ORDER BY Nome");
     }
     
-    function cadastrarLivro(){
-        $query = mysql_query(" SELECT * FROM Livro WHERE Nome like '".$this->Nome."' ") or die(mysql_error());
+    function cadastrarLivro($con){
+        $query = mysqli_query($con, " SELECT * FROM Livro WHERE Nome like '".$this->Nome."' ") or die(mysqli_error());
         
-        if(mysql_num_rows($query) == 0){
-            $query = mysql_query("INSERT INTO Livro (Nome, Autor, qtdpaginas, Preco) VALUES ('".$this->Nome."', '".$this->Autor."', '".$this->qtdpaginas."', '".$this->Preco."')") or die(mysql_error());
+        if(mysqli_num_rows($query) == 0){
+            $query = mysqli_query($con, "INSERT INTO Livro (Nome, Autor, qtdpaginas, Preco) VALUES ('".$this->Nome."', '".$this->Autor."', '".$this->qtdpaginas."', '".$this->Preco."')") or die(mysqli_error());
             $sucesso = "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi inserido com sucesso no banco de dados.</div>";
             echo $sucesso;
         }
@@ -26,9 +26,9 @@ class Livro {
         }
     }
     
-    function selecionarLivro(){    
-        $query = mysql_query("SELECT * FROM Livro WHERE Id = '".$this->Id."'") or die(mysql_error());
-        $linha = mysql_fetch_object($query);
+    function selecionarLivro($con){    
+        $query = mysqli_query($con, "SELECT * FROM Livro WHERE Id = '".$this->Id."'") or die(mysqli_error());
+        $linha = mysqli_fetch_object($query);
         
         ?>
         
@@ -53,10 +53,10 @@ class Livro {
         </div>
         <div class="form-group">
         <label>Disponibilidade </label> <br>
-        <input type="radio" name="disponibilidade" <?php if($linha->Disponibilidade) echo checked ?>
+        <input type="radio" name="disponibilidade" <?php if($linha->Disponibilidade){ echo "checked"; }?>
         id="feditardispativo" /> Ativo
         <br>
-        <input type="radio" name="disponibilidade" <?php if(!$linha->Disponibilidade) echo checked ?>
+        <input type="radio" name="disponibilidade" <?php if(!$linha->Disponibilidade){ echo "checked"; }?>
         id="feditardispinativo" /> Inativo
         </div>
         </div>
@@ -65,20 +65,20 @@ class Livro {
         <?php
     }
     
-    function editarLivro(){
-        $query = mysql_query("SELECT * FROM Livro WHERE Nome like '".$this->Nome."' AND Id != '".$this->Id."'") or die(mysql_error());
-        if(mysql_num_rows($query) == 0){
+    function editarLivro($con){
+        $query = mysqli_query($con, "SELECT * FROM Livro WHERE Nome like '".$this->Nome."' AND Id != '".$this->Id."'") or die(mysqli_error());
+        if(mysqli_num_rows($query) == 0){
             if($this->Disponibilidade){
                 $disponibilidade = 1;
             }
             else{
                 $disponibilidade = 0;
             }
-            $query = mysql_query("UPDATE Livro 
+            $query = mysqli_query($con, "UPDATE Livro 
             SET
             Nome = '".$this->Nome."', Autor = '".$this->Autor."', qtdpaginas = '".$this->qtdpaginas."', Preco = '".$this->Preco."', Disponibilidade = '".$disponibilidade."', DataDeEdicao = CURRENT_TIMESTAMP
             WHERE
-            Id = '".$this->Id."'") or die(mysql_error());
+            Id = '".$this->Id."'") or die(mysqli_error());
             
             $sucesso = "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi editado com sucesso.</div>";
             echo $sucesso;
@@ -89,31 +89,31 @@ class Livro {
         }
     }
     
-    function deletarLivro(){
-        $query = mysql_query("DELETE FROM Livro WHERE Id = '".$this->Id."'") or die(mysql_error());
+    function deletarLivro($con){
+        $query = mysqli_query($con, "DELETE FROM Livro WHERE Id = '".$this->Id."'") or die(mysqli_error());
     }
     
-    function alterarDisponibilidade(){
-        $query = mysql_query(" SELECT * FROM Livro WHERE Id = '".$this->Id."' ") or die(mysql_error());
-        $linha = mysql_fetch_object($query) or die(mysql_error());                                  
+    function alterarDisponibilidade($con){
+        $query = mysqli_query($con, " SELECT * FROM Livro WHERE Id = '".$this->Id."' ") or die(mysqli_error());
+        $linha = mysqli_fetch_object($query) or die(mysqli_error());                                  
         if($linha->Disponibilidade){
             $disponibilidade = 0;  
         }
         else{
             $disponibilidade = 1;
         }
-        $sql = mysql_query(" UPDATE Livro SET Disponibilidade = '".$disponibilidade."', DataDeEdicao = CURRENT_TIMESTAMP WHERE Id = '".$this->Id."' ") or die(mysql_error()); 
+        $sql = mysqli_query($con, " UPDATE Livro SET Disponibilidade = '".$disponibilidade."', DataDeEdicao = CURRENT_TIMESTAMP WHERE Id = '".$this->Id."' ") or die(mysqli_error()); 
     }
     
-    function pesquisarlivros($valor){
-        return $query = mysql_query(" SELECT * FROM Livro WHERE Nome like '".$valor."%' OR Autor like '".$valor."%' ORDER BY Nome");
+    function pesquisarlivros($con, $valor){
+        return $query = mysqli_query($con, "SELECT * FROM Livro WHERE Nome like '".$valor."%' OR Autor like '".$valor."%' ORDER BY Nome");
     }
 
 }
 
 function formatarPrecoParaBD($preco){
     $preco = str_replace(",", ".", $preco);
-    $preco = number_format($preco, 2, '.', '.');
+    $preco = number_format($preco, 2, '.', '');
     return $preco;
 }
 

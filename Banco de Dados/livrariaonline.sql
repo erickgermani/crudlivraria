@@ -48,9 +48,9 @@ CREATE TABLE `livro` (
 
 INSERT INTO `livro` (`Id`, `Nome`, `Autor`, `qtdpaginas`, `Preco`, `Disponibilidade`, `DataDeCriacao`, `DataDeEdicao`) VALUES
 (1, 'Arte da Guerra', 'Sun Tzu', 120, 24, 1, '2020-10-27 20:50:41', '2020-10-28 13:05:28'),
-(2, 'RevoluÃ§Ã£o dos Bichos', 'George Orwell', 84, 54, 1, '2020-10-27 20:52:03', '2020-10-28 17:02:07'),
+(2, 'RevoluÃ§Ã£o dos Bichos', 'George Orwell', 84, 54, 0, '2020-10-27 20:52:03', '2020-10-28 17:02:07'),
 (3, '1984', 'George Orwell', 161, 145.99, 1, '2020-10-27 20:55:06', '2020-10-28 19:21:48'),
-(4, 'O Guia do Mochileiro das GalÃ¡xias', 'Douglas Adams', 240, 67, 1, '2020-10-28 12:31:11', '2020-10-28 13:09:29');
+(4, 'O Guia do Mochileiro das GalÃ¡xias', 'Douglas Adams', 240, 67, 0, '2020-10-28 12:31:11', '2020-10-28 13:09:29');
 
 --
 -- Indexes for dumped tables

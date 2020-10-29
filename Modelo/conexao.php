@@ -4,8 +4,9 @@
 		$hostdb = '127.0.0.1';
 		$userdb = 'root';
 		$passdb = '';
+		$namedb = 'livrariaonline';
 		
-		if ($con = mysql_pconnect ($hostdb,$userdb,$passdb)){
+		if ($con = mysqli_connect ($hostdb,$userdb,$passdb, $namedb)){
 			return $con;
 		}
 		
