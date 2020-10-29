@@ -1,22 +1,21 @@
 <?php
-
 class Livro {
     public $Id;
     public $Nome;
     public $Autor;
-    public $qtdpaginas;
+    public $QtdPaginas;
     public $Preco;
     public $Disponibilidade;
     
     function carregarLivros($con){
-        return $query = mysqli_query($con, "SELECT * FROM livro ORDER BY Nome");
+        return mysqli_query($con, "SELECT * FROM livro ORDER BY Nome");
     }
     
     function cadastrarLivro($con){
         $query = mysqli_query($con, " SELECT * FROM Livro WHERE Nome like '".$this->Nome."' ") or die(mysqli_error());
         
         if(mysqli_num_rows($query) == 0){
-            $query = mysqli_query($con, "INSERT INTO Livro (Nome, Autor, qtdpaginas, Preco) VALUES ('".$this->Nome."', '".$this->Autor."', '".$this->qtdpaginas."', '".$this->Preco."')") or die(mysqli_error());
+            $query = mysqli_query($con, "INSERT INTO Livro (Nome, Autor, QtdPaginas, Preco) VALUES ('".$this->Nome."', '".$this->Autor."', '".$this->QtdPaginas."', '".$this->Preco."')") or die(mysqli_error());
             $sucesso = "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi inserido com sucesso no banco de dados.</div>";
             echo $sucesso;
         }
@@ -44,12 +43,12 @@ class Livro {
         <div class="form-group col-md-6">
         <label>Quantidade de Páginas: </label>
         <input type="text" class="form-control" placeholder="Insira a quantidade de páginas do livro"
-        id="feditarqtdpaginas" value="<?php echo $linha->qtdpaginas ?>" />
+        id="feditarqtdpaginas" value="<?php echo $linha->QtdPaginas ?>" />
         </div>
         <div class="form-group col-md-6">
         <label>Preço: </label>
         <input type="text" class="form-control" placeholder="Insira o preço do livro" id="feditarpreco"
-        value="<?php echo formatarPreco($linha->Preco) ?>" />
+        value="<?php echo formatarPrecoParaModal($linha->Preco) ?>" />
         </div>
         <div class="form-group">
         <label>Disponibilidade </label> <br>
@@ -76,21 +75,19 @@ class Livro {
             }
             $query = mysqli_query($con, "UPDATE Livro 
             SET
-            Nome = '".$this->Nome."', Autor = '".$this->Autor."', qtdpaginas = '".$this->qtdpaginas."', Preco = '".$this->Preco."', Disponibilidade = '".$disponibilidade."', DataDeEdicao = CURRENT_TIMESTAMP
+            Nome = '".$this->Nome."', Autor = '".$this->Autor."', QtdPaginas = '".$this->QtdPaginas."', Preco = '".$this->Preco."', Disponibilidade = '".$disponibilidade."', DataDeEdicao = CURRENT_TIMESTAMP
             WHERE
             Id = '".$this->Id."'") or die(mysqli_error());
             
-            $sucesso = "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi editado com sucesso.</div>";
-            echo $sucesso;
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi editado com sucesso.</div>";
         }
         else{
-            $erro = "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Já existe um livro com este nome no banco de dados.</div>";
-            echo $erro;
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Já existe um livro com este nome no banco de dados.</div>";
         }
     }
     
     function deletarLivro($con){
-        $query = mysqli_query($con, "DELETE FROM Livro WHERE Id = '".$this->Id."'") or die(mysqli_error());
+        mysqli_query($con, "DELETE FROM Livro WHERE Id = '".$this->Id."'") or die(mysqli_error());
     }
     
     function alterarDisponibilidade($con){
@@ -106,7 +103,7 @@ class Livro {
     }
     
     function pesquisarlivros($con, $valor){
-        return $query = mysqli_query($con, "SELECT * FROM Livro WHERE Nome like '".$valor."%' OR Autor like '".$valor."%' ORDER BY Nome");
+        return mysqli_query($con, "SELECT * FROM Livro WHERE Nome like '".$valor."%' OR Autor like '".$valor."%' ORDER BY Nome");
     }
 
 }
@@ -117,8 +114,13 @@ function formatarPrecoParaBD($preco){
     return $preco;
 }
 
-function formatarPreco($preco){
+function formatarPrecoParaTabela($preco){
     $preco = number_format($preco, 2, ',', '.');
+    return $preco;
+}
+
+function formatarPrecoParaModal($preco){
+    $preco = number_format($preco, 2, ',', '');
     return $preco;
 }
 

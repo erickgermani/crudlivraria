@@ -239,7 +239,8 @@ function verificarCampos(nome, autor, qtdpaginas, preco) {
 }
 
 function verificarPreco(preco) {
-    preco = preco.replace(",", ".");
+    preco = preco.replace(",", "");
+    preco = preco.replace(".", "");
     if(preco > 0){
         return $.isNumeric(preco);
     }

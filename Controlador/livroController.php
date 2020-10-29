@@ -1,62 +1,99 @@
 <?php
-
+require_once '../Rotas/Roteador.php';
 require_once '../Modelo/livro.php';
 require_once '../Modelo/criadorDeTabela.php';
 require_once '../Modelo/conexao.php';
 
 $con = conectar();
-mysqli_select_db($con, 'livrariaonline') or die(mysqli_error());
+
+$roteador = new Roteador();
 $funcao = $_POST['funcao'];
 
-if($funcao == 1){
+$roteador
+    ->add(1, 'index', $con)
+    ->add(2, 'create', $con)
+    ->add(3, 'find', $con)
+    ->add(4, 'update', $con)
+    ->add(5, 'destroy', $con)
+    ->add(6, 'updateAvailability', $con)
+    ->add(7, 'showById', $con)
+    ->dispatch($funcao);
+
+/**
+ * 1
+ */
+function index($con)
+{
     $livro = new Livro();
     $query = $livro->carregarLivros($con);
     CriadorDeTabela::criar($query);
 }
 
-if($funcao == 2){
+/**
+ * 2
+ */
+function create($con)
+{
     $livro = new Livro();
     $livro->Nome = $_POST['nome'];
     $livro->Autor = $_POST['autor'];
-    $livro->qtdpaginas = $_POST['qtdpaginas'];
+    $livro->QtdPaginas = $_POST['qtdpaginas'];
     $livro->Preco = formatarPrecoParaBD($_POST['preco']);
     $livro->cadastrarLivro($con);
 }
 
-if($funcao == 3){
+/**
+ * 3
+ */
+function find($con)
+{
     $livro = new Livro();
     $livro->Id = $_POST['id'];
     $livro->selecionarLivro($con);
 }
 
-if($funcao == 4){
+/**
+ * 4
+ */
+function update($con)
+{
     $livro = new Livro();
     $livro->Id = $_POST['id'];
     $livro->Nome = $_POST['nome'];
     $livro->Autor = $_POST['autor'];
-    $livro->qtdpaginas = $_POST['qtdpaginas'];
+    $livro->QtdPaginas = $_POST['qtdpaginas'];
     $livro->Preco = formatarPrecoParaBD($_POST['preco']);
     $livro->Disponibilidade = $_POST['disponibilidade'];
     $livro->editarLivro($con);
 }
 
-if($funcao == 5){
+/**
+ * 5
+ */
+function destroy($con)
+{
     $livro = new Livro();
     $livro->Id = $_POST['id'];
     $livro->deletarLivro($con);
 }
 
-if($funcao == 6){
+/**
+ * 6
+ */
+function updateAvailability($con)
+{
     $livro = new Livro();
     $livro->Id = $_POST['id'];
     $livro->alterarDisponibilidade($con);
 }
 
-if($funcao == 7){
+/**
+ * 7
+ */
+function showById($con)
+{
     $livro = new Livro();
     $valor = $_POST['valor'];
     $query = $livro->pesquisarlivros($con, $valor);
     CriadorDeTabela::criar($query);
 }
-
-?>
