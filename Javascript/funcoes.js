@@ -49,10 +49,10 @@ function verificarCadastro() {
         return;
     }
     
-    CadastrarLivro(nome, autor, qtdpaginas, preco);
+    cadastrarLivro(nome, autor, qtdpaginas, preco);
 }
 
-function CadastrarLivro(nome, autor, qtdpaginas, preco) {
+function cadastrarLivro(nome, autor, qtdpaginas, preco) {
     var funcao = 2;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -80,7 +80,8 @@ function CadastrarLivro(nome, autor, qtdpaginas, preco) {
 
 // Preencher o modal Edicao com os dados do livro selecionado
 
-function SelecionarLivro(idRecebido) {
+function selecionarLivro(idRecebido) {
+    $("#alertaedicao").html("");
     var funcao = 3;
     id = idRecebido;
     var page = "Controlador/livroController.php";
@@ -145,10 +146,10 @@ function verificarEdicao() {
         $("#alertaedicao").html(alertaqtdpaginas);
         return;
     }
-    EditarLivro(nome, autor, qtdpaginas, preco, disponibilidade);
+    editarLivro(nome, autor, qtdpaginas, preco, disponibilidade);
 }
 
-function EditarLivro(nome, autor, qtdpaginas, preco, disponibilidade) {
+function editarLivro(nome, autor, qtdpaginas, preco, disponibilidade) {
     var funcao = 4;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -172,7 +173,7 @@ function EditarLivro(nome, autor, qtdpaginas, preco, disponibilidade) {
     });
 }
 
-function DeletarLivro(id) {
+function deletarLivro(id) {
     var funcao = 5;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -193,7 +194,7 @@ function DeletarLivro(id) {
     });
 }
 
-function AlterarDisponibilidade(id){
+function alterarDisponibilidade(id){
     var funcao = 6;
     var page = "Controlador/livroController.php";
     $.ajax({
@@ -253,6 +254,10 @@ function verificarqtdpaginas(qtdpaginas) {
         }
     }
     return false;
+}
+
+function limparAlerta(){
+    $("#alertacadastro").html("");
 }
 
 const fcadastrarqtdpaginas = document.querySelector("#fcadastrarqtdpaginas");

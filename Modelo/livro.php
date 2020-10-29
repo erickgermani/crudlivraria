@@ -16,12 +16,11 @@ class Livro {
         
         if(mysqli_num_rows($query) == 0){
             $query = mysqli_query($con, "INSERT INTO Livro (Nome, Autor, QtdPaginas, Preco) VALUES ('".$this->Nome."', '".$this->Autor."', '".$this->QtdPaginas."', '".$this->Preco."')") or die(mysqli_error());
-            $sucesso = "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi inserido com sucesso no banco de dados.</div>";
-            echo $sucesso;
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>O livro foi inserido com sucesso no banco de dados.</div>";
+            
         }
         else{
-            $erro = "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Já existe um livro com este nome no banco de dados.</div>";
-            echo $erro;
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert' data-dismiss='alert' style='cursor: pointer'>Já existe um livro com este nome no banco de dados.</div>";
         }
     }
     
